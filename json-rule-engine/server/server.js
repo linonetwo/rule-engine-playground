@@ -1,9 +1,31 @@
-const loopback = require('loopback');
-const boot = require('loopback-boot');
+import loopback from 'loopback';
+import boot from 'loopback-boot';
 
-const ruleEngine = require('../rules').default;
+import express from 'express';
+import bodyParser from 'body-parser';
+
+import { ruleEngine } from '../rules';
 
 const dbApp = loopback();
+
+function startRuleEngineApp() {
+  const ruleEngineApp = express();
+  ruleEngineApp.use(bodyParser.json());
+  ruleEngineApp.get('/', (req, res) => {
+    res.send('Post data here to run rules.');
+  });
+
+  ruleEngine.loadRules().then(() => ruleEngineApp.post('/', async (req, res) => {
+    const data = req.body;
+
+    console.log('Receive POST data:\n');
+    console.dir(data);
+
+    ruleEngine.runRule(data).then(result => res.send(`Result is  ${JSON.stringify(result)}`));
+  }));
+  console.log('Send data to port 54088 to check data.');
+  ruleEngineApp.listen(54088);
+}
 
 dbApp.start = function databaseAppStart() {
   // start the web server
@@ -12,7 +34,7 @@ dbApp.start = function databaseAppStart() {
     const baseUrl = dbApp.get('url').replace(/\/$/, '');
     console.log('Web server listening at: %s', baseUrl);
 
-    ruleEngine();
+    startRuleEngineApp();
 
     if (dbApp.get('loopback-component-explorer')) {
       const explorerPath = dbApp.get('loopback-component-explorer').mountPath;
