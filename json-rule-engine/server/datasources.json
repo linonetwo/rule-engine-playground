@@ -1,6 +1,12 @@
 {
-  "db": {
-    "name": "db",
-    "connector": "memory"
+  "rule-mysql": {
+    "host": "localhost",
+    "port": 3306,
+    "url": "",
+    "database": "rules",
+    "password": "nctest1",
+    "name": "rule-mysql",
+    "user": "root",
+    "connector": "mysql"
   }
 }

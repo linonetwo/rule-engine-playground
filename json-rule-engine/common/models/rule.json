@@ -1,0 +1,23 @@
+{
+  "name": "rule",
+  "plural": "rules",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "rule": {
+      "type": "Object",
+      "required": true
+    },
+    "id": {
+      "id": true,
+      "type": "Number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
