@@ -21,6 +21,8 @@
     "loopback-connector-mysql": "^2.4.1",
     "loopback-connector-postgresql": "^2.7.0",
     "node-fetch": "^1.6.3",
+    "redis": "^2.6.5",
+    "rxjs": "^5.1.0",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^1.0.1"
   },
